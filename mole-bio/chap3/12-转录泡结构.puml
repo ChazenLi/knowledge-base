@@ -1,0 +1,58 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Microsoft YaHei
+caption 转录泡结构示意图
+
+skinparam rectangle {
+    BorderColor Black
+    BackgroundColor White
+}
+
+rectangle "上游DNA已转录" as upstream #LightCoral
+
+rectangle "转录泡约17bp" as bubble #LightYellow {
+    rectangle "DNA模板链" as template
+    rectangle "RNA和DNA杂交区约8到9bp" as hybrid #LightGreen
+    rectangle "非模板链" as nontemplate
+}
+
+rectangle "下游DNA待转录" as downstream #LightBlue
+
+rectangle "RNA聚合酶" as rnap #LightPink {
+    rectangle "活性中心" as active
+}
+
+rectangle "新生RNA从5到3" as rna #LightGreen
+
+upstream --> bubble : 转录完成
+bubble --> downstream : 待转录
+bubble --> rnap : 包含
+hybrid --> rna : 延伸
+
+note left of upstream
+  重新退火
+end note
+
+note top of bubble
+  DNA解链区域
+  约17bp
+end note
+
+note right of hybrid
+  稳定的RNA和DNA杂交
+  驱动聚合酶前进
+end note
+
+note right of active
+  催化磷酸二酯键形成
+end note
+
+note left of downstream
+  尚未解链
+end note
+
+note bottom of rna
+  5端已离开聚合酶
+end note
+
+@enduml

@@ -1,0 +1,62 @@
+@startuml   
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 转录调控网络
+
+rectangle "表观遗传调控" as epi {
+  rectangle "组蛋白修饰" as histone {
+    (乙酰化) --> (激活转录)
+    (甲基化) --> (激活或抑制)
+    (磷酸化) --> (信号转导)
+  }
+
+  rectangle "DNA甲基化" as dna_meth {
+    (CpG岛) --> (通常抑制)
+    (招募HDAC) --> (染色质浓缩)
+  }
+
+  rectangle "染色质重塑" as remodel {
+    (SWI和SNF) --> (滑动核小体)
+    (ISWI) --> (规则间距)
+  }
+}
+
+rectangle "转录因子调控" as tf_regulation {
+  rectangle "通用转录因子" as gtf_reg {
+    (TFIID) --> (识别TATA框)
+    (TFIIH) --> (解旋和CTD磷酸化)
+  }
+
+  rectangle "特异转录因子" as stf {
+    (激活因子) --> (增强子结合)
+    (抑制因子) --> (沉默子结合)
+  }
+
+  rectangle "中介体" as med_reg {
+    (Mediator) --> (连接因子与Pol II)
+  }
+}
+
+rectangle "染色质状态" as chromatin {
+  (常染色质) --> (疏松即活跃转录)
+  (异染色质) --> (致密即转录沉默)
+}
+
+note "增强子" as enhancer_note
+note "沉默子" as silencer_note
+
+enhancer_note ..> gtf_reg : 距离非依赖激活
+silencer_note ..> gtf_reg : 距离非依赖抑制
+chromatin --> gtf_reg : 影响
+histone --> chromatin : 调控
+dna_meth --> chromatin : 调控
+remodel --> chromatin : 调控
+
+note bottom of epi
+  表观遗传调控
+  不改变DNA序列
+  可遗传的转录调控
+end note
+
+@enduml

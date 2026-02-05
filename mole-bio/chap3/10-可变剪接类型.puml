@@ -1,0 +1,42 @@
+@startuml  
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 可变剪接类型
+
+rectangle "可变剪接类型" as alt_splicing {
+  rectangle "外显子跳过" as exon_skip {
+    rectangle "E1和E2和E3和E4" as original1
+    rectangle "E1和E3和E4" as spliced1
+    note right: 最常见类型
+  }
+
+  rectangle "内含子保留" as intron_retain {
+    rectangle "E1和I和E2" as original2
+    rectangle "E1和I和E2" as spliced2
+    note right: 某些基因
+  }
+
+  rectangle "互斥外显子" as mutual_excl {
+    rectangle "E1和E2a和E3" as original3
+    rectangle "E1和E2b和E3" as spliced3
+    note right: 只选一个
+  }
+
+  rectangle "可变5位点" as alt5 {
+    rectangle "E1和5a和E2" as original4
+    rectangle "E1和5b和E2" as spliced4
+  }
+
+  rectangle "可变3位点" as alt3 {
+    rectangle "E1和3a和E2" as original5
+    rectangle "E1和3b和E2" as spliced5
+  }
+}
+
+note bottom of alt_splicing
+  大于95百分比人类多外显子基因发生可变剪接
+  是蛋白质组多样性的重要来源
+end note
+
+@enduml

@@ -1,0 +1,62 @@
+@startuml   
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption RNA聚合酶结构示意图
+
+rectangle "原核RNA聚合酶E.coli" as pro_rnap {
+  rectangle "alpha2" as alpha #LightBlue
+  rectangle "beta" as beta #LightGreen
+  rectangle "beta和prime" as betap #LightYellow
+  rectangle "omega" as omega #LightCoral
+  rectangle "sigma70" as sigma #LightPink
+
+  note right of alpha
+    启动子识别
+    与alphaCTD结合
+    调控因子
+  end note
+
+  note right of beta
+    催化中心
+    利福平结合位点
+  end note
+
+  note right of betap
+    DNA模板结合
+    含锌指结构
+  end note
+
+  note right of sigma
+    识别35区和10区
+    启动子清除后脱离
+  end note
+}
+
+rectangle "真核RNA Pol II" as euk_rnap {
+  rectangle "RPB1含CTD" as rpb1 #LightBlue
+  rectangle "RPB2" as rpb2 #LightGreen
+  rectangle "RPB3到12" as other #LightGray
+  rectangle "CTD重复序列" as ctd #LightPink {
+    rectangle "Y S P T S P S" as heptad #LightPink
+    rectangle "52次" as repeat #LightPink
+  }
+
+  note right of ctd
+    Ser5磷酸化到起始
+    Ser2磷酸化到延伸
+    协调转录与加工
+  end note
+}
+
+note bottom of pro_rnap
+  核心酶即2个beta1个omega
+  全酶即核心酶加sigma因子
+end note
+
+note bottom of euk_rnap
+  12个亚基组成
+  CTD是转录调控中心
+end note
+
+@enduml

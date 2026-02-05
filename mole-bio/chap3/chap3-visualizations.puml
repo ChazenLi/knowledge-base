@@ -1,0 +1,825 @@
+' ====================================================================
+' 图1: 关键概念逻辑思维导图
+' ====================================================================
+
+@startmindmap 关键概念逻辑思维导图
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 关键概念逻辑思维导图
+
+* 第3章 DNA到RNA转录
+** 3.1 RNA结构分类功能
+*** 结构特点
+**** 核糖2和prime和OH
+**** 碱基AUGC
+**** 单链可折叠
+*** 二级结构
+**** 发夹茎环
+**** 内部环
+**** 假结
+*** 三级结构
+**** tRNA三叶草到L型
+**** rRNA复杂折叠
+*** 功能分类
+**** mRNA占5百分比模板
+**** tRNA占15百分比运氨基酸
+**** rRNA占80百分比催化
+**** snRNA剪接
+**** miRNA和siRNA调控
+** 3.2 转录概述
+*** 转录vs复制
+**** 模板特定vs全基因组
+**** 产物RNAvsDNA
+**** 引物无vs有
+**** 保真低vs高
+*** RNA聚合酶
+***** 原核
+****** 核心酶即2个beta1个omega
+****** 全酶加sigma因子
+****** sigma70识别35区10区
+***** 真核
+****** Pol I到rRNA
+****** Pol II到mRNA
+****** Pol III到tRNA和5S
+*** 启动子
+***** 原核35区10区
+***** 真核TATA框
+***** 增强子和沉默子
+** 3.3 转录基本过程
+*** 模板识别
+**** 原核sigma识别
+**** 真核TBP识别
+*** 转录起始
+**** 封闭复合物
+**** 开放复合物
+**** 流产起始
+**** 启动子清除
+*** 转录延伸
+**** 转录泡17bp
+**** RNA和DNA杂交8到9bp
+**** Pausing和Backtracking
+*** 转录终止
+***** 原核
+****** rho不依赖发夹加polyU
+****** rho依赖rut位点
+***** 真核
+****** Pol II加尾信号
+****** Pol III polyT
+** 3.4 原核vs真核比较
+*** RNA聚合酶
+**** 原核1种
+**** 真核3种
+*** 转录因子
+**** 原核sigma因子
+**** 真核多种GTF
+*** mRNA特征
+***** 原核
+****** 多顺反子
+****** 无5帽3尾
+****** SD序列
+***** 真核
+****** 单顺反子
+****** 5帽加3polyA
+****** Kozak序列
+** 3.5 真核转录后加工
+*** 5加帽
+**** m7GpppN
+**** 保护和输出和翻译
+*** 3加尾
+**** AAUAAA信号
+**** polyA约200A
+*** 剪接
+**** GU到AG法则
+**** 剪接体U1到U6
+**** 两步转酯反应
+**** 可变剪接
+*** RNA编辑
+**** A到I
+**** C到U
+** 3.6 转录调控
+*** 染色质调控
+**** 组蛋白修饰
+**** DNA甲基化
+**** 染色质重塑
+*** 表观遗传
+**** 组蛋白密码
+**** X染色体失活
+**** 基因组印记
+
+@endmindmap
+
+' ====================================================================
+' 图2: 转录过程流程图
+' ====================================================================
+
+@startuml 转录过程流程图
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 转录过程流程图
+
+start
+:DNA模板;
+
+partition "模板识别" {
+  if (原核?) then (是)
+    :sigma因子识别35区TTGACA;
+    :sigma因子识别10区TATAAT;
+    -[hidden]-
+  else (否)
+    :TFIID即TBP识别TATA框;
+    :TFIIA和TFIIB结合;
+    :TFIIF和Pol II结合;
+    :TFIIE和TFIIH加入;
+  endif
+}
+
+partition "转录起始" {
+  :封闭复合物;
+  :开放复合物即DNA解链约17bp;
+  while (流产起始?) is (是)
+    :合成短RNA即2到9nt;
+    :RNA释放;
+  endwhile (否)
+  :合成第一个磷酸二酯键;
+  note right
+    转录起始不需要引物!
+    这是与DNA复制的
+    关键区别之一
+  end note
+  :启动子清除;
+  if (原核?) then (是)
+    :sigma因子脱离;
+  endif
+}
+
+partition "转录延伸" {
+  :转录泡沿DNA移动;
+  :RNA和DNA杂交约8到9bp;
+  :RNA从5端向3端延伸;
+  partition "调控" {
+    :NusA和NusG原核用\nTFIIS真核用;
+    :Pausing暂停;
+    :Backtracking回退;
+  }
+}
+
+partition "转录终止" {
+  if (原核?) then (是)
+    if (rho因子?) then (依赖)
+      :rho识别rut位点;
+      :rho追赶并解离;
+    else (不依赖)
+      :GC发夹形成;
+      :polyU destabilize;
+      :RNA和DNA解离;
+    endif
+  else (真核)
+    if (Pol II?) then (是)
+      :识别AAUAAA;
+      :切割pre和mRNA;
+      :加polyA尾;
+      :XRN2 torpedo;
+    else (Pol III)
+      :polyT终止信号;
+    endif
+  endif
+}
+
+:成熟RNA释放;
+:DNA模板恢复;
+
+stop
+
+@enduml
+
+' ====================================================================
+' 图3: 分子相互作用网络图
+' ====================================================================
+
+@startuml 分子相互作用网络图
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 分子相互作用网络图
+
+rectangle "DNA模板" {
+  rectangle "启动子区域" {
+    rectangle "35区TTGACA" as m35
+    rectangle "10区TATAAT" as m10
+    rectangle "TATA框" as tata
+  }
+  rectangle "编码区" as coding
+  rectangle "终止子" as terminator
+}
+
+rectangle "原核转录机器" {
+  rectangle "核心酶2个beta1个omega" as core
+  rectangle "sigma70因子" as sigma70
+  rectangle "其他sigma因子" as other_sigma
+}
+
+rectangle "真核转录机器" {
+  rectangle "Pol I" as pol1
+  rectangle "Pol II" as pol2
+  rectangle "Pol III" as pol3
+  rectangle "通用转录因子GTF" as gtf {
+    rectangle "TFIID即TBP" as tbp
+    rectangle "TFIIB" as tfiib
+    rectangle "TFIIF" as tfiif
+    rectangle "TFIIH" as tfiih
+  }
+  rectangle "中介体Mediator" as mediator
+}
+
+rectangle "转录调控因子" {
+  rectangle "激活因子" as activator
+  rectangle "抑制因子" as repressor
+  rectangle "增强子" as enhancer
+  rectangle "沉默子" as silencer
+}
+
+rectangle "RNA产物" {
+  rectangle "mRNA" as mrna
+  rectangle "tRNA" as trna
+  rectangle "rRNA" as rrna
+  rectangle "snRNA" as snrna
+}
+
+rectangle "转录后加工复合物" {
+  rectangle "加帽酶" as capping
+  rectangle "加尾复合物" as polya {
+    rectangle "CPSF" as cpsf
+    rectangle "CstF" as cstf
+    rectangle "PAP" as pap
+  }
+  rectangle "剪接体" {
+    rectangle "U1 snRNP" as u1
+    rectangle "U2 snRNP" as u2
+    rectangle "U4和U6和U5" as u456
+  }
+}
+
+m35 ..> sigma70 : 识别
+m10 ..> sigma70 : 识别
+tata ..> tbp : 识别
+
+sigma70 --> core : 组成全酶
+core --> m35 : 结合
+
+tbp --> pol2 : 招募
+tfiib --> pol2 : 招募
+tfiif --> pol2 : 结合
+tfiih --> pol2 : 激活
+
+activator ..> enhancer : 结合
+enhancer ..> gtf : 远程激活
+repressor ..> silencer : 结合
+silencer ..> gtf : 抑制
+
+core --> mrna : 转录
+pol2 --> mrna : 转录
+pol1 --> rrna : 转录
+pol3 --> trna : 转录
+
+capping --> mrna : 5加帽
+polya --> mrna : 3加尾
+u456 --> mrna : 剪接
+
+cpsf ..> mrna : 识别AAUAAA
+cstf ..> mrna : 结合下游
+u1 ..> mrna : 识别5剪接位点
+u2 ..> mrna : 识别分支点
+
+@enduml
+
+' ====================================================================
+' 图4: 原核vs真核转录对比
+' ====================================================================
+
+@startuml 原核vs真核转录对比
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 原核vs真核转录对比
+
+salt
+{
+  {原核生物
+    RNA聚合酶: 1种即2个beta1个omega加sigma
+    启动子: 35区TTGACA，10区TATAAT
+    转录因子: sigma70主要，sigma32等特异
+    mRNA: 多顺反子，无5帽，无3polyA，SD序列
+    转录翻译: 偶联同时进行
+    终止: rho依赖和不依赖，发夹加polyU
+  }
+  {真核生物
+    RNA聚合酶: 3种即Pol I和II和III
+    启动子: TATA框即负25到负30，起始子Inr
+    转录因子: TFIIA和TFIIB和TFIID和TFIIE和TFIIF和TFIIH
+    mRNA: 单顺反子，有5帽，有3polyA，Kozak序列
+    转录翻译: 分隔即核和质
+    终止: 与加尾信号关联，AAUAAA切割
+  }
+}
+
+@enduml
+
+' ====================================================================
+' 图5: RNA剪接反应机理
+' ====================================================================
+
+@startuml RNA剪接反应机理
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption RNA剪接反应机理
+
+packet "剪接反应两步转酯" {
+  card "步骤1分支反应" as step1 {
+    rectangle "外显子1" as e1
+    rectangle "5剪接位点GU" as five_ss
+    rectangle "分支点A" as bp
+    rectangle "内含子" as intron
+    rectangle "3剪接位点AG" as three_ss
+    rectangle "外显子2" as e2
+
+    e1 --> five_ss
+    five_ss --> intron
+    intron --> three_ss
+    three_ss --> e2
+    bp .five_ss. : 2和prime和OH攻击
+
+    note right of bp
+      分支点A的2和prime和OH
+      攻击5剪接位点
+      形成5和prime和2磷酸二酯键
+      产生套索结构
+    end note
+  }
+
+  card "步骤2外显子连接" as step2 {
+    rectangle "外显子1" as e1_2
+    rectangle "套索内含子" as lariat
+    rectangle "外显子2" as e2_2
+    rectangle "成熟mRNA" as mature
+
+    e1_2 --> lariat
+    lariat --> e2_2
+    e2_2 --> mature
+
+    note right of mature
+      外显子1的3和prime和OH
+      攻击3剪接位点
+      外显子连接
+      内含子套索释放
+    end note
+  }
+}
+
+rectangle "剪接体组装顺序" as splice_order {
+  (U1) --> (识别5剪接位点)
+  (U2AF) --> (结合3剪接位点)
+  (U2) --> (结合分支点)
+  (U4和U6和U5三聚体) --> (加入复合物)
+  (结构重排) --> (激活剪接体)
+  (执行剪接) --> (释放套索)
+}
+
+note bottom of splice_order
+  snRNP按顺序组装形成剪接体
+  执行两步转酯反应完成剪接
+end note
+
+@enduml
+
+' ====================================================================
+' 图6: RNA聚合酶结构示意图
+' ====================================================================
+
+@startuml RNA聚合酶结构示意图
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption RNA聚合酶结构示意图
+
+rectangle "原核RNA聚合酶E.coli" as pro_rnap {
+  rectangle "alpha2" as alpha #LightBlue
+  rectangle "beta" as beta #LightGreen
+  rectangle "beta和prime" as betap #LightYellow
+  rectangle "omega" as omega #LightCoral
+  rectangle "sigma70" as sigma #LightPink
+
+  note right of alpha
+    启动子识别
+    与alphaCTD结合
+    调控因子
+  end note
+
+  note right of beta
+    催化中心
+    利福平结合位点
+  end note
+
+  note right of betap
+    DNA模板结合
+    含锌指结构
+  end note
+
+  note right of sigma
+    识别35区和10区
+    启动子清除后脱离
+  end note
+}
+
+rectangle "真核RNA Pol II" as euk_rnap {
+  rectangle "RPB1含CTD" as rpb1 #LightBlue
+  rectangle "RPB2" as rpb2 #LightGreen
+  rectangle "RPB3到12" as other #LightGray
+  rectangle "CTD重复序列" as ctd #LightPink {
+    rectangle "Y S P T S P S" as heptad #LightPink
+    rectangle "52次" as repeat #LightPink
+  }
+
+  note right of ctd
+    Ser5磷酸化到起始
+    Ser2磷酸化到延伸
+    协调转录与加工
+  end note
+}
+
+note bottom of pro_rnap
+  核心酶即2个beta1个omega
+  全酶即核心酶加sigma因子
+end note
+
+note bottom of euk_rnap
+  12个亚基组成
+  CTD是转录调控中心
+end note
+
+@enduml
+
+' ====================================================================
+' 图7: 5'帽子结构
+' ====================================================================
+
+@startuml 5帽子结构与加帽过程
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 5帽子结构与加帽过程
+
+rectangle "5帽子结构类型" as cap_types {
+  rectangle "Cap和0" as cap0 {
+    rectangle "m7G" as m7g #LightPink
+    rectangle "ppp" as ppp
+    rectangle "N" as n
+    note right of cap0
+      m7GpppN
+      基础帽子
+    end note
+  }
+
+  rectangle "Cap和1" as cap1 {
+    rectangle "m7G" as m7g2 #LightPink
+    rectangle "ppp" as ppp2
+    rectangle "Nm即2和O甲基" as nm
+    note right of cap1
+      m7GpppNm
+      第一个核糖甲基化
+    end note
+  }
+
+  rectangle "Cap和2" as cap2 {
+    rectangle "m7G" as m7g3 #LightPink
+    rectangle "ppp" as ppp3
+    rectangle "Nm和Nm" as nm2
+    note right of cap2
+      m7GpppNmNm
+      前两个核糖甲基化
+    end note
+  }
+}
+
+rectangle "加帽过程" as cap_process {
+  (pppN...) --> (RNA三磷酸酶即去除gamma磷酸)
+  (ppN...) --> (鸟苷酰转移酶即添加GMP)
+  (GpppN...) --> (甲基转移酶即添加m7G)
+  (m7GpppN...) --> (Cap和0)
+  (Cap和0) --> (Cap和1即2和O甲基化)
+}
+
+note bottom of cap_process
+  转录开始后20到30nt加帽
+  需要RNA三磷酸酶和鸟苷酰转移酶和甲基转移酶
+end note
+
+note top of cap_types
+  帽子功能即
+  1保护mRNA免受5外切酶降解
+  2促进核输出
+  3被eIF4E识别启动翻译
+end note
+
+@enduml
+
+' ====================================================================
+' 图8: 转录调控网络
+' ====================================================================
+
+@startuml 转录调控网络
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 转录调控网络
+
+rectangle "表观遗传调控" as epi {
+  rectangle "组蛋白修饰" as histone {
+    (乙酰化) --> (激活转录)
+    (甲基化) --> (激活或抑制)
+    (磷酸化) --> (信号转导)
+  }
+
+  rectangle "DNA甲基化" as dna_meth {
+    (CpG岛) --> (通常抑制)
+    (招募HDAC) --> (染色质浓缩)
+  }
+
+  rectangle "染色质重塑" as remodel {
+    (SWI和SNF) --> (滑动核小体)
+    (ISWI) --> (规则间距)
+  }
+}
+
+rectangle "转录因子调控" as tf_regulation {
+  rectangle "通用转录因子" as gtf_reg {
+    (TFIID) --> (识别TATA框)
+    (TFIIH) --> (解旋和CTD磷酸化)
+  }
+
+  rectangle "特异转录因子" as stf {
+    (激活因子) --> (增强子结合)
+    (抑制因子) --> (沉默子结合)
+  }
+
+  rectangle "中介体" as med_reg {
+    (Mediator) --> (连接因子与Pol II)
+  }
+}
+
+rectangle "染色质状态" as chromatin {
+  (常染色质) --> (疏松即活跃转录)
+  (异染色质) --> (致密即转录沉默)
+}
+
+note "增强子" as enhancer_note
+note "沉默子" as silencer_note
+
+enhancer_note ..> gtf_reg : 距离非依赖激活
+silencer_note ..> gtf_reg : 距离非依赖抑制
+chromatin --> gtf_reg : 影响
+histone --> chromatin : 调控
+dna_meth --> chromatin : 调控
+remodel --> chromatin : 调控
+
+note bottom of epi
+  表观遗传调控
+  不改变DNA序列
+  可遗传的转录调控
+end note
+
+@enduml
+
+' ====================================================================
+' 图9: sigma因子等级调控
+' ====================================================================
+
+@startuml sigma因子等级调控网络
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption sigma因子等级调控网络
+
+rectangle "sigma70即RpoD" as sigma70_main #LightBlue {
+  note top
+    主要sigma因子
+    看家基因
+    识别35区10区
+  end note
+}
+
+rectangle "环境应激sigma因子" as stress_sigma {
+  rectangle "sigma32即RpoH" as sigma32 #LightPink {
+    note bottom
+      热激响应
+    end note
+  }
+
+  rectangle "sigmaE即RpoE" as sigmaE #LightCoral {
+    note bottom
+      胞外应激
+    end note
+  }
+}
+
+rectangle "代谢sigma因子" as meta_sigma {
+  rectangle "sigma54即RpoN" as sigma54 #LightGreen {
+    note bottom
+      氮代谢
+    end note
+  }
+}
+
+rectangle "其他sigma因子" as other_sigma_list {
+  rectangle "sigmaF即RpoF" as sigmaF #LightYellow {
+    note bottom
+      鞭毛合成
+    end note
+  }
+}
+
+sigma70_main --> (看家基因转录)
+sigma32 --> (热激基因转录)
+sigmaE --> (外膜蛋白基因)
+sigma54 --> (氮同化基因)
+sigmaF --> (鞭毛基因)
+
+note bottom
+  不同sigma因子使细菌能够
+  快速响应环境变化
+  转录不同基因组合
+end note
+
+@enduml
+
+' ====================================================================
+' 图10: 可变剪接类型
+' ====================================================================
+
+@startuml 可变剪接类型
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 可变剪接类型
+
+rectangle "可变剪接类型" as alt_splicing {
+  rectangle "外显子跳过" as exon_skip {
+    rectangle "E1和E2和E3和E4" as original1
+    rectangle "E1和E3和E4" as spliced1
+    note right: 最常见类型
+  }
+
+  rectangle "内含子保留" as intron_retain {
+    rectangle "E1和I和E2" as original2
+    rectangle "E1和I和E2" as spliced2
+    note right: 某些基因
+  }
+
+  rectangle "互斥外显子" as mutual_excl {
+    rectangle "E1和E2a和E3" as original3
+    rectangle "E1和E2b和E3" as spliced3
+    note right: 只选一个
+  }
+
+  rectangle "可变5位点" as alt5 {
+    rectangle "E1和5a和E2" as original4
+    rectangle "E1和5b和E2" as spliced4
+  }
+
+  rectangle "可变3位点" as alt3 {
+    rectangle "E1和3a和E2" as original5
+    rectangle "E1和3b和E2" as spliced5
+  }
+}
+
+note bottom of alt_splicing
+  大于95百分比人类多外显子基因发生可变剪接
+  是蛋白质组多样性的重要来源
+end note
+
+@enduml
+
+' ====================================================================
+' 图11: 核心概念依赖关系图
+' ====================================================================
+
+@startuml 核心概念依赖关系图
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 核心概念依赖关系图
+
+package "基础概念" {
+  [DNA结构]
+  [RNA结构]
+  [中心法则]
+}
+
+package "转录机制" {
+  [RNA聚合酶]
+  [启动子识别]
+  [转录起始]
+  [转录延伸]
+  [转录终止]
+}
+
+package "转录调控" {
+  [原核调控]
+  [真核调控]
+  [表观遗传]
+}
+
+package "转录后加工" {
+  [5加帽]
+  [3加尾]
+  [剪接]
+  [可变剪接]
+  [RNA编辑]
+}
+
+[DNA结构] --> [RNA结构]
+[RNA结构] --> [中心法则]
+[中心法则] --> [RNA聚合酶]
+
+[RNA聚合酶] --> [启动子识别]
+[启动子识别] --> [转录起始]
+[转录起始] --> [转录延伸]
+[转录延伸] --> [转录终止]
+
+[转录终止] --> [5加帽]
+[5加帽] --> [3加尾]
+[3加尾] --> [剪接]
+[剪接] --> [可变剪接]
+[剪接] --> [RNA编辑]
+
+[启动子识别] ..> [原核调控] : 影响
+[启动子识别] ..> [真核调控] : 影响
+[真核调控] ..> [表观遗传] : 包含
+
+note right of [中心法则]
+  DNA到RNA到蛋白质
+  转录是第一步
+end note
+
+note left of [表观遗传]
+  不改变DNA序列的
+  可遗传调控
+end note
+
+@enduml
+
+' ====================================================================
+' 图12: 转录泡结构示意图
+' ====================================================================
+
+@startuml 转录泡结构示意图
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 转录泡结构示意图
+
+skinparam rectangle {
+    BorderColor Black
+    BackgroundColor White
+}
+
+rectangle "上游DNA已转录" as upstream #LightCoral {
+    note bottom: 重新退火
+}
+
+rectangle "转录泡约17bp" as bubble #LightYellow {
+    rectangle "DNA模板链" as template
+    rectangle "RNA和DNA杂交区约8到9bp" as hybrid #LightGreen
+    rectangle "非模板链" as nontemplate
+    note bottom of hybrid
+        稳定的RNA和DNA杂交
+        驱动聚合酶前进
+    end note
+}
+
+rectangle "下游DNA待转录" as downstream #LightBlue {
+    note bottom: 尚未解链
+}
+
+rectangle "RNA聚合酶" as rnap #LightPink {
+    rectangle "活性中心" as active
+    note right: 催化磷酸二酯键形成
+}
+
+rectangle "新生RNA从5到3" as rna #LightGreen {
+    note bottom: 5端已离开聚合酶
+}
+
+upstream --> bubble : 转录完成
+bubble --> downstream : 待转录
+bubble --> rnap : 包含
+hybrid --> rna : 延伸
+
+note top of bubble
+    DNA解链区域
+    约17bp
+end note
+
+@enduml

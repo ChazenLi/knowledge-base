@@ -1,0 +1,80 @@
+@startuml   
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 转录过程流程图
+
+start
+:DNA模板;
+
+partition "模板识别" {
+  if (原核?) then (是)
+    :sigma因子识别35区TTGACA;
+    :sigma因子识别10区TATAAT;
+    -[hidden]-
+  else (否)
+    :TFIID即TBP识别TATA框;
+    :TFIIA和TFIIB结合;
+    :TFIIF和Pol II结合;
+    :TFIIE和TFIIH加入;
+  endif
+}
+
+partition "转录起始" {
+  :封闭复合物;
+  :开放复合物即DNA解链约17bp;
+  while (流产起始?) is (是)
+    :合成短RNA即2到9nt;
+    :RNA释放;
+  endwhile (否)
+  :合成第一个磷酸二酯键;
+  note right
+    转录起始不需要引物!
+    这是与DNA复制的
+    关键区别之一
+  end note
+  :启动子清除;
+  if (原核?) then (是)
+    :sigma因子脱离;
+  endif
+}
+
+partition "转录延伸" {
+  :转录泡沿DNA移动;
+  :RNA和DNA杂交约8到9bp;
+  :RNA从5端向3端延伸;
+  partition "调控" {
+    :NusA和NusG原核用\nTFIIS真核用;
+    :Pausing暂停;
+    :Backtracking回退;
+  }
+}
+
+partition "转录终止" {
+  if (原核?) then (是)
+    if (rho因子?) then (依赖)
+      :rho识别rut位点;
+      :rho追赶并解离;
+    else (不依赖)
+      :GC发夹形成;
+      :polyU destabilize;
+      :RNA和DNA解离;
+    endif
+  else (真核)
+    if (Pol II?) then (是)
+      :识别AAUAAA;
+      :切割pre和mRNA;
+      :加polyA尾;
+      :XRN2 torpedo;
+    else (Pol III)
+      :polyT终止信号;
+    endif
+  endif
+}
+
+:成熟RNA释放;
+:DNA模板恢复;
+
+stop
+
+@enduml

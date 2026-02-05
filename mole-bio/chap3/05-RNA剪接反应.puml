@@ -1,0 +1,59 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Microsoft YaHei
+
+package "剪接反应两步转酯" {
+  rectangle "步骤1分支反应" as step1 #LightBlue {
+    [外显子1]
+    [5剪接位点即GU]
+    [分支点A]
+    [内含子]
+    [3剪接位点即AG]
+    [外显子2]
+
+    [外显子1] --> [5剪接位点即GU]
+    [5剪接位点即GU] --> [内含子]
+    [内含子] --> [3剪接位点即AG]
+    [3剪接位点即AG] --> [外显子2]
+
+    note right of [分支点A]
+      分支点A的2和prime和OH
+      攻击5剪接位点
+      形成套索结构
+    end note
+  }
+
+  rectangle "步骤2外显子连接" as step2 #LightGreen {
+    [外显子1]
+    [套索内含子]
+    [外显子2]
+    [成熟mRNA]
+
+    [外显子1] --> [套索内含子]
+    [套索内含子] --> [外显子2]
+    [外显子2] --> [成熟mRNA]
+
+    note right of [成熟mRNA]
+      外显子1的3和prime和OH
+      攻击3剪接位点
+      外显子连接
+      内含子套索释放
+    end note
+  }
+}
+
+rectangle "剪接体组装顺序" {
+  [U1] --> [识别5剪接位点]
+  [U2AF] --> [结合3剪接位点]
+  [U2] --> [结合分支点]
+  [U4和U6和U5三聚体] --> [加入复合物]
+  [结构重排] --> [激活剪接体]
+  [执行剪接] --> [释放套索]
+
+  note bottom
+    snRNP按顺序组装形成剪接体
+    执行两步转酯反应完成剪接
+  end note
+}
+
+@enduml

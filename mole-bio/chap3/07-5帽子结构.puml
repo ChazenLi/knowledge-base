@@ -1,0 +1,59 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 5帽子结构与加帽过程
+
+rectangle "5帽子结构类型" as cap_types {
+  rectangle "Cap和0" as cap0 {
+    rectangle "m7G" as m7g #LightPink
+    rectangle "ppp" as ppp
+    rectangle "N" as n
+    note right of cap0
+      m7GpppN
+      基础帽子
+    end note
+  }
+
+  rectangle "Cap和1" as cap1 {
+    rectangle "m7G" as m7g2 #LightPink
+    rectangle "ppp" as ppp2
+    rectangle "Nm即2和O甲基" as nm
+    note right of cap1
+      m7GpppNm
+      第一个核糖甲基化
+    end note
+  }
+
+  rectangle "Cap和2" as cap2 {
+    rectangle "m7G" as m7g3 #LightPink
+    rectangle "ppp" as ppp3
+    rectangle "Nm和Nm" as nm2
+    note right of cap2
+      m7GpppNmNm
+      前两个核糖甲基化
+    end note
+  }
+}
+
+rectangle "加帽过程" as cap_process {
+  (pppN...) --> (RNA三磷酸酶即去除gamma磷酸)
+  (ppN...) --> (鸟苷酰转移酶即添加GMP)
+  (GpppN...) --> (甲基转移酶即添加m7G)
+  (m7GpppN...) --> (Cap和0)
+  (Cap和0) --> (Cap和1即2和O甲基化)
+}
+
+note bottom of cap_process
+  转录开始后20到30nt加帽
+  需要RNA三磷酸酶和鸟苷酰转移酶和甲基转移酶
+end note
+
+note top of cap_types
+  帽子功能即
+  1保护mRNA免受5外切酶降解
+  2促进核输出
+  3被eIF4E识别启动翻译
+end note
+
+@enduml

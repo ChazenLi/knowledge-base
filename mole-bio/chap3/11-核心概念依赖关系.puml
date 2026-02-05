@@ -1,0 +1,64 @@
+@startuml   
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 核心概念依赖关系图
+
+package "基础概念" {
+  [DNA结构]
+  [RNA结构]
+  [中心法则]
+}
+
+package "转录机制" {
+  [RNA聚合酶]
+  [启动子识别]
+  [转录起始]
+  [转录延伸]
+  [转录终止]
+}
+
+package "转录调控" {
+  [原核调控]
+  [真核调控]
+  [表观遗传]
+}
+
+package "转录后加工" {
+  [5加帽]
+  [3加尾]
+  [剪接]
+  [可变剪接]
+  [RNA编辑]
+}
+
+[DNA结构] --> [RNA结构]
+[RNA结构] --> [中心法则]
+[中心法则] --> [RNA聚合酶]
+
+[RNA聚合酶] --> [启动子识别]
+[启动子识别] --> [转录起始]
+[转录起始] --> [转录延伸]
+[转录延伸] --> [转录终止]
+
+[转录终止] --> [5加帽]
+[5加帽] --> [3加尾]
+[3加尾] --> [剪接]
+[剪接] --> [可变剪接]
+[剪接] --> [RNA编辑]
+
+[启动子识别] ..> [原核调控] : 影响
+[启动子识别] ..> [真核调控] : 影响
+[真核调控] ..> [表观遗传] : 包含
+
+note right of [中心法则]
+  DNA到RNA到蛋白质
+  转录是第一步
+end note
+
+note left of [表观遗传]
+  不改变DNA序列的
+  可遗传调控
+end note
+
+@enduml

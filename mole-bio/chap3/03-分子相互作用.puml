@@ -1,0 +1,95 @@
+@startuml   
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Microsoft YaHei"
+caption 分子相互作用网络图
+
+rectangle "DNA模板" {
+  rectangle "启动子区域" {
+    rectangle "35区TTGACA" as m35
+    rectangle "10区TATAAT" as m10
+    rectangle "TATA框" as tata
+  }
+  rectangle "编码区" as coding
+  rectangle "终止子" as terminator
+}
+
+rectangle "原核转录机器" {
+  rectangle "核心酶2个beta1个omega" as core
+  rectangle "sigma70因子" as sigma70
+  rectangle "其他sigma因子" as other_sigma
+}
+
+rectangle "真核转录机器" {
+  rectangle "Pol I" as pol1
+  rectangle "Pol II" as pol2
+  rectangle "Pol III" as pol3
+  rectangle "通用转录因子GTF" as gtf {
+    rectangle "TFIID即TBP" as tbp
+    rectangle "TFIIB" as tfiib
+    rectangle "TFIIF" as tfiif
+    rectangle "TFIIH" as tfiih
+  }
+  rectangle "中介体Mediator" as mediator
+}
+
+rectangle "转录调控因子" {
+  rectangle "激活因子" as activator
+  rectangle "抑制因子" as repressor
+  rectangle "增强子" as enhancer
+  rectangle "沉默子" as silencer
+}
+
+rectangle "RNA产物" {
+  rectangle "mRNA" as mrna
+  rectangle "tRNA" as trna
+  rectangle "rRNA" as rrna
+  rectangle "snRNA" as snrna
+}
+
+rectangle "转录后加工复合物" {
+  rectangle "加帽酶" as capping
+  rectangle "加尾复合物" as polya {
+    rectangle "CPSF" as cpsf
+    rectangle "CstF" as cstf
+    rectangle "PAP" as pap
+  }
+  rectangle "剪接体" {
+    rectangle "U1 snRNP" as u1
+    rectangle "U2 snRNP" as u2
+    rectangle "U4和U6和U5" as u456
+  }
+}
+
+m35 ..> sigma70 : 识别
+m10 ..> sigma70 : 识别
+tata ..> tbp : 识别
+
+sigma70 --> core : 组成全酶
+core --> m35 : 结合
+
+tbp --> pol2 : 招募
+tfiib --> pol2 : 招募
+tfiif --> pol2 : 结合
+tfiih --> pol2 : 激活
+
+activator ..> enhancer : 结合
+enhancer ..> gtf : 远程激活
+repressor ..> silencer : 结合
+silencer ..> gtf : 抑制
+
+core --> mrna : 转录
+pol2 --> mrna : 转录
+pol1 --> rrna : 转录
+pol3 --> trna : 转录
+
+capping --> mrna : 5加帽
+polya --> mrna : 3加尾
+u456 --> mrna : 剪接
+
+cpsf ..> mrna : 识别AAUAAA
+cstf ..> mrna : 结合下游
+u1 ..> mrna : 识别5剪接位点
+u2 ..> mrna : 识别分支点
+
+@enduml

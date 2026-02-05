@@ -1,0 +1,54 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Microsoft YaHei
+
+rectangle "sigma70即RpoD" as sigma70_main #LightBlue
+
+rectangle "环境应激sigma因子" {
+  rectangle "sigma32即RpoH" as sigma32 #LightPink
+  rectangle "sigmaE即RpoE" as sigmaE #LightCoral
+}
+
+rectangle "代谢sigma因子" {
+  rectangle "sigma54即RpoN" as sigma54 #LightGreen
+}
+
+rectangle "其他sigma因子" {
+  rectangle "sigmaF即RpoF" as sigmaF #LightYellow
+}
+
+sigma70_main --> (看家基因转录)
+sigma32 --> (热激基因转录)
+sigmaE --> (外膜蛋白基因)
+sigma54 --> (氮同化基因)
+sigmaF --> (鞭毛基因)
+
+note right of sigma70_main
+  主要sigma因子
+  看家基因
+  识别35区10区
+end note
+
+note left of sigma32
+  热激响应
+end note
+
+note left of sigmaE
+  胞外应激
+end note
+
+note left of sigma54
+  氮代谢
+end note
+
+note left of sigmaF
+  鞭毛合成
+end note
+
+note bottom
+  不同sigma因子使细菌能够
+  快速响应环境变化
+  转录不同基因组合
+end note
+
+@enduml

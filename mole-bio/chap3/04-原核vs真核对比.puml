@@ -1,0 +1,31 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Microsoft YaHei
+
+package "原核生物" as pro {
+  [RNA聚合酶: 1种即2个beta1个omega加sigma]
+  [启动子: 35区TTGACA，10区TATAAT]
+  [转录因子: sigma70主要，sigma32等特异]
+  [mRNA: 多顺反子，无5帽，无3polyA，SD序列]
+  [转录翻译: 偶联同时进行]
+  [终止: rho依赖和不依赖，发夹加polyU]
+}
+
+package "真核生物" as euk {
+  [RNA聚合酶: 3种即Pol I和II和III]
+  [启动子: TATA框即负25到负30，起始子Inr]
+  [转录因子: TFIIA和TFIIB和TFIID和TFIIE和TFIIF和TFIIH]
+  [mRNA: 单顺反子，有5帽，有3polyA，Kozak序列]
+  [转录翻译: 分隔即核和质]
+  [终止: 与加尾信号关联，AAUAAA切割]
+}
+
+note right of pro
+  原核生物特征
+end note
+
+note left of euk
+  真核生物特征
+end note
+
+@enduml
